@@ -4,7 +4,7 @@
 - name: Ensure nginx container has an up-to-date configuration
   docker:
     name: "{{ nginx_container_name }}"
-    image: "{{ athena_registry_url | default('registry.prod.athena.ts-agora.com/athena') }}/nginx:{{ nginx_version }}"
+    image: "nginx:{{ nginx_version }}" # use official docker image library
     state: "reloaded"
     pull: always
     ports:
@@ -15,6 +15,6 @@
       - "{{ nginx_certs_path }}:/etc/nginx/certs"
       - "{{ nginx_htpasswd_path }}:/etc/nginx/htpasswd"
       - "{{ nginx_config_path }}/proxy.conf:/etc/nginx/proxy.conf"
-      
+
   tags:
     - docker

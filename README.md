@@ -1,4 +1,4 @@
-# Nginx Creation playbook #
+# Nginx Creation role #
 
 
 ## Requirements
@@ -10,7 +10,7 @@ This project must be cloned under specific project's Ansible Roles to Create Ngi
 `nginx_version` : Docker Nginx image version
 
 ## Optional Variables
-	
+
 `nginx_path` : Nginx Root Path for configurations and certificates. Default to */data/nginx*
 
 `nginx_certs_path` : Nginx Certs Path. Default to *"{{ nginx_path }}/certs"*
