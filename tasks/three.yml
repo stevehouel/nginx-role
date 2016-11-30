@@ -4,7 +4,7 @@
 - name: Ensure nginx container has an up-to-date configuration
   docker:
     name: "{{ nginx_container_name }}"
-    image: "nginx:{{ nginx_version }}" # use official docker image library
+    image: "nginx:{{ nginx_version }}"
     state: "reloaded"
     pull: always
     ports:
