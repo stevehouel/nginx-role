@@ -1,0 +1,9 @@
+---
+# defaults file for nginx
+nginx_path: /data/nginx
+nginx_certs_path: "{{ nginx_path }}/certs"
+nginx_htpasswd_path: "{{ nginx_path }}/htpasswd"
+nginx_config_path: "{{ nginx_path }}/config"
+nginx_port: 80
+nginx_https_port: 443
+nginx_container_name: nginx

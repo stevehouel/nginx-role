@@ -1,0 +1,20 @@
+---
+# tasks file for nginx
+
+- name: Ensure nginx container has an up-to-date configuration
+  docker:
+    name: "{{ nginx_container_name }}"
+    image: "{{ athena_registry_url | default('registry.prod.athena.ts-agora.com/athena') }}/nginx:{{ nginx_version }}"
+    state: "reloaded"
+    pull: always
+    ports:
+      - "{{ nginx_port }}:80"
+      - "{{ nginx_https_port }}:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - "{{ nginx_certs_path }}:/etc/nginx/certs"
+      - "{{ nginx_htpasswd_path }}:/etc/nginx/htpasswd"
+      - "{{ nginx_config_path }}/proxy.conf:/etc/nginx/proxy.conf"
+      
+  tags:
+    - docker

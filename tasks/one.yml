@@ -1,0 +1,42 @@
+---
+# tasks file for nginx
+
+- name: Ensure Nginx role path is available
+  file:
+    path: "{{ nginx_path }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  tags:
+    - init
+
+- name: Ensure Nginx HTTPS Certificats volume path is available
+  file:
+    path: "{{ nginx_certs_path }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  tags:
+    - init
+
+- name: Ensure Nginx HTTPS HtPassword volume path is available
+  file:
+    path: "{{ nginx_htpasswd_path }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  tags:
+    - init
+
+- name: Ensure Nginx Config volume path is available
+  file:
+    path: "{{ nginx_config_path }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  tags:
+    - init

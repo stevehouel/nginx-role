@@ -1,0 +1,35 @@
+---
+# tasks file for nginx
+
+- name: Check if there are Nginx SSL certificates files to copy
+  local_action: stat path={{ inventory_dir }}/conf-nginx/certs/
+  register: certificates_path
+  ignore_errors: True
+  
+- name: Ensure Nginx SSL certificates files are up-to-date
+  copy: src={{ inventory_dir }}/conf-nginx/certs/ dest={{ nginx_certs_path }}
+  when: certificates_path.stat.exists
+  tags:
+    - init
+
+- name: Check if there are Nginx HTAccess files to copy
+  local_action: stat path={{ inventory_dir }}/conf-nginx/htaccess/
+  register: htaccess_path
+  ignore_errors: True
+
+- name: Ensure Nginx HTAccess files are up-to-date
+  copy: src={{ inventory_dir }}/conf-nginx/htaccess/ dest={{ nginx_htpasswd_path }}
+  when: htaccess_path.stat.exists
+  tags:
+    - init
+
+- name: Ensure Nginx Config files are up-to-date
+  template:
+    backup: "yes"
+    src: "{{ inventory_dir }}/conf-nginx/config/proxy.conf"
+    dest: "{{ nginx_config_path }}/proxy.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  tags:
+    - init
